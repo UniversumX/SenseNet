@@ -1,0 +1,1 @@
+equipment_plan.md

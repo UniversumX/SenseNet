@@ -3,7 +3,7 @@ from scipy.signal import butter, filtfilt, chirp
 import torch
 from sklearn.preprocessing import StandardScaler
 import mne
-from mne.simulation import generate_random_state_space
+
 
 class IntegratedWorldSimulator:
     """
@@ -32,6 +32,11 @@ class IntegratedWorldSimulator:
         states = states.reshape(self.config.n_trials, self.config.n_timepoints, n_states)
         
         return states
+
+    def generate_random_state_space(n_times, n_states, rng):
+        # Generate smooth latent state trajectories via cumulative sums
+        states = np.cumsum(rng.randn(n_times, n_states), axis=0)
+        return states, None  # Adjust return values as needed
     
     def generate_eeg_data(self):
         """
